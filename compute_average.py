@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import random
 
 def avg_np(x):
     t0 = time.time()
@@ -26,6 +27,15 @@ def avg_for_loop(x):
     return avg, t1-t0
 
 
+def avg_assumedmean(x):
+    t0 = time.time()
+    m = random.choice(x)
+    A = np.array((x-m)).sum()
+    m = m + A/len(x)
+    t1 = time.time()
+    return m, t1-t0
+
+
 def avg_recursive(x):
 	t0 = time.time()
 	m_prev = x[0]
@@ -38,23 +48,24 @@ def avg_recursive(x):
 
 if __name__ == "__main__":
     n = np.arange(100, 1000, 99)
-    p, q, r, s = np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n))
-    pt, qt, rt, st = np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n))
+    p, q, r, s, t = np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n))
+    pt, qt, rt, st, tt = np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n))
 
     for i, j in enumerate(n):
         x = np.random.randint(1000, size=(j)).reshape(-1,1)
-        p[i], pt[i] = avg_for(x)
+        p[i], pt[i] = avg_for_loop(x)
         q[i], qt[i] = avg_np(x)
         r[i], rt[i] = avg_builtin(x)
         s[i], st[i] = avg_recursive(x)
-
+        t[i], tt[i] = avg_assumedmean(x)
+        
     plt.figure(1)
     plt.subplot(211)
-    plt.plot(n, pt, 'r', n, qt, 'g', n, rt, 'b', n, st, 'm')
+    plt.plot(n, pt, 'r', n, qt, 'g', n, rt, 'b', n, st, 'm', n, tt, 'k')
     plt.title('Time for computation')
-    plt.legend(['for loop', 'numpy', 'builtin', 'recursive'])
+    plt.legend(['for loop', 'numpy', 'builtin', 'recursive', 'assumed mean'])
     plt.subplot(212)
     plt.title('Average value')
-    plt.plot(n, p, '*r', n, q, '*g', n, r, '*b', n, s, '*m')
-    plt.legend(['for loop', 'numpy', 'builtin', 'recursion'])
+    plt.plot(n, p, '*r', n, q, '*g', n, r, '*b', n, s, '*m', n, t, '*k')
+    plt.legend(['for loop', 'numpy', 'builtin', 'recursion', 'assumed mean'])
     plt.show()
