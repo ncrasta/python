@@ -1,6 +1,6 @@
 """
 Converts image files to pdf
-usage 
+usage:
 python3 image2pdf.py -d path_to_file_folder
 """
 import os
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # INPUT DIRECTORY
-    _src = args.directory
+    src = args.directory
 
     # CONVERT ALL IMAGES TO PDFs
-    convert_image_pdf(os.path.join(_src))
+    convert_image_pdf(os.path.join(src))
