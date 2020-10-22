@@ -21,7 +21,7 @@ def avg_builtin(x):
     return avg, t1-t0
 
 
-def avg_for(x):
+def avg_for_loop(x):
     t0 = time.time()
     s = 0
     for i in x:
