@@ -2,17 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-
-
-
 def avg_np(x):
     t0 = time.time()
     a = np.ones_like(x)
     b = np.dot(a.T, x)/np.linalg.norm(a)**2
     t1 = time.time()
     return b, t1-t0
-
-
 
 def avg_builtin(x):
     t0 = time.time()
@@ -42,7 +37,6 @@ def avg_recursive(x):
 
 
 if __name__ == "__main__":
-
     n = np.arange(100, 1000, 99)
     p, q, r, s = np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n))
     pt, qt, rt, st = np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n)), np.zeros(len(n))
